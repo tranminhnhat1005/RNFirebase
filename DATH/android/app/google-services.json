@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "248628424086",
+    "firebase_url": "https://dath-13b35.firebaseio.com",
+    "project_id": "dath-13b35",
+    "storage_bucket": "dath-13b35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248628424086:android:4454e220754f5475d281b7",
+        "android_client_info": {
+          "package_name": "com.dath"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248628424086-4p8p2ur5ph6p7qojruccr10skjkhl9bv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl6q4WQs0LIYcAkLyErEQe8IE1wk4cAdY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "248628424086-4p8p2ur5ph6p7qojruccr10skjkhl9bv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
