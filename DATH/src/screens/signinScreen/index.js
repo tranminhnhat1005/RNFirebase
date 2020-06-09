@@ -18,7 +18,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import {useTheme} from 'react-native-paper';
 
-// import {AuthContext} from '../components/context';
+import {AuthContext} from '../../components/context';
 
 // import Users from '../model/users';
 
@@ -34,7 +34,7 @@ const SignInScreen = ({navigation}) => {
 
   const {colors} = useTheme();
 
-  // const {signIn} = React.useContext(AuthContext);
+  const {signIn} = React.useContext(AuthContext);
 
   const textInputChange = (val) => {
     if (val.trim().length >= 4) {
@@ -91,28 +91,29 @@ const SignInScreen = ({navigation}) => {
   //   }
   // };
 
-  // const loginHandle = (userName, password) => {
-  //   const foundUser = Users.filter((item) => {
-  //     return userName == item.username && password == item.password;
-  //   });
+  const loginHandle = (userName, password) => {
+    // const foundUser = Users.filter((item) => {
+    //   return userName == item.username && password == item.password;
+    // });
 
-  //   if (data.username.length == 0 || data.password.length == 0) {
-  //     Alert.alert(
-  //       'Wrong Input!',
-  //       'Username or password field cannot be empty.',
-  //       [{text: 'Okay'}],
-  //     );
-  //     return;
-  //   }
+    // if (data.username.length == 0 || data.password.length == 0) {
+    //   Alert.alert(
+    //     'Wrong Input!',
+    //     'Username or password field cannot be empty.',
+    //     [{text: 'Okay'}],
+    //   );
+    //   return;
+    // }
 
-  //   if (foundUser.length == 0) {
-  //     Alert.alert('Invalid User!', 'Username or password is incorrect.', [
-  //       {text: 'Okay'},
-  //     ]);
-  //     return;
-  //   }
-  //   signIn(foundUser);
-  // };
+    // if (foundUser.length == 0) {
+    //   Alert.alert('Invalid User!', 'Username or password is incorrect.', [
+    //     {text: 'Okay'},
+    //   ]);
+    //   return;
+    // }
+    // signIn(foundUser);
+    signIn(userName, password);
+  };
 
   return (
     <View style={styles.container}>
@@ -154,8 +155,16 @@ const SignInScreen = ({navigation}) => {
             )}
           </TouchableOpacity>
         </View>
+        <TouchableOpacity>
+          <Text style={{color: COLOR_SPLASH_BG, marginTop: 10}}>
+            Forgot password ?
+          </Text>
+        </TouchableOpacity>
         <View style={styles.button}>
           <TouchableOpacity
+            onPress={() => {
+              loginHandle(data.username, data.password);
+            }}
             style={[styles.signIn, {backgroundColor: COLOR_SPLASH_BG}]}>
             <Text style={[styles.textSign, {color: '#fff'}]}>Sign In</Text>
           </TouchableOpacity>
