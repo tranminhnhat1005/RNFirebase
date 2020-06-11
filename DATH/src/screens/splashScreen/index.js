@@ -54,7 +54,7 @@ const Splash = () => {
           <TouchableOpacity
             style={styles.signIn}
             onPress={() => navigation.replace('SignInScreen')}>
-            <Text style={styles.textSign}>Get Started >></Text>
+            <Text style={styles.textSign}>Get Started {'>>'}</Text>
           </TouchableOpacity>
         </View>
       </Animatable.View>

@@ -144,14 +144,32 @@ const SignInScreen = ({navigation}) => {
       <StatusBar backgroundColor={COLOR_SPLASH_BG} barStyle="light-content" />
       <View style={styles.header}>
         <Text style={styles.text_header}>Register Now!</Text>
+        <View style={styles.header_small}>
+          <View style={styles.header_small_up}>
+            <Text style={styles.text_header_small}>
+              By signng up you agree to our{' '}
+            </Text>
+            <TouchableOpacity>
+              <Text style={[styles.text_header_small, {fontWeight: 'bold'}]}>
+                Terms of service
+              </Text>
+            </TouchableOpacity>
+            <Text style={styles.text_header_small}> and</Text>
+          </View>
+          <TouchableOpacity>
+            <Text style={[styles.text_header_small, {fontWeight: 'bold'}]}>
+              Privacy policy
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.text_footer}>Email</Text>
+        <Text style={styles.text_footer}>Username</Text>
         <View style={styles.action}>
           <FontAwesome name="user-o" color="#05375a" size={20} />
           <TextInput
             style={styles.textInput}
-            placeholder="Your Email"
+            placeholder="Your Username"
             autoCapitalize="none"
             onChangeText={(val) => textInputChange(val)}
           />
@@ -246,9 +264,21 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   text_header: {
+    marginTop: 30,
+    flex: 1,
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 30,
+  },
+  header_small: {
+    flex: 1,
+  },
+  header_small_up: {
+    flexDirection: 'row',
+    paddingTop: 15,
+  },
+  text_header_small: {
+    color: '#fff',
   },
   text_footer: {
     color: '#05375a',
