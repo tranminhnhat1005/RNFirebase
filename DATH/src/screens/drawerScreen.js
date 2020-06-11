@@ -4,7 +4,6 @@ import {
   Avatar,
   Caption,
   Drawer,
-  Paragraph,
   Title,
   Text,
   TouchableRipple,

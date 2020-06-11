@@ -105,7 +105,7 @@ const App = () => {
         console.log(e);
       }
       dispatch({type: 'RETRIEVE_TOKEN', token: userToken});
-    }, 1000);
+    }, 800);
   }, []);
 
   if (loginState.isLoading) {
