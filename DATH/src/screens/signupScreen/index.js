@@ -39,7 +39,7 @@ const SignInScreen = ({navigation}) => {
   // const {signIn} = React.useContext(AuthContext);
 
   const textInputChange = (val) => {
-    if (val.trim().length >= 4) {
+    if (val.trim().length >= 8) {
       setData({
         ...data,
         username: val,
@@ -102,19 +102,19 @@ const SignInScreen = ({navigation}) => {
     });
   };
 
-  // const handleValidUser = (val) => {
-  //   if (val.trim().length >= 4) {
-  //     setData({
-  //       ...data,
-  //       isValidUser: true,
-  //     });
-  //   } else {
-  //     setData({
-  //       ...data,
-  //       isValidUser: false,
-  //     });
-  //   }
-  // };
+  const handleValidUser = (val) => {
+    if (val.trim().length >= 8) {
+      setData({
+        ...data,
+        isValidUser: true,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidUser: false,
+      });
+    }
+  };
 
   // const loginHandle = (userName, password) => {
   //   const foundUser = Users.filter((item) => {
@@ -172,6 +172,7 @@ const SignInScreen = ({navigation}) => {
             placeholder="Your Username"
             autoCapitalize="none"
             onChangeText={(val) => textInputChange(val)}
+            onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
           />
           {data.check_textInputChange ? (
             <Animatable.View animation="bounceIn">
@@ -179,6 +180,13 @@ const SignInScreen = ({navigation}) => {
             </Animatable.View>
           ) : null}
         </View>
+        {data.isValidUser ? null : (
+          <Animatable.View animation="fadeInRight" duration={500}>
+            <Text style={styles.errorMsg}>
+              Username must be 8 characters long.
+            </Text>
+          </Animatable.View>
+        )}
         <Text style={[styles.text_footer, {marginTop: 15}]}>Password</Text>
         <View style={styles.action}>
           <FontAwesome name="lock" color="#05375a" size={20} />
@@ -197,6 +205,13 @@ const SignInScreen = ({navigation}) => {
             )}
           </TouchableOpacity>
         </View>
+        {data.isValidPassword ? null : (
+          <Animatable.View animation="fadeInRight" duration={500}>
+            <Text style={styles.errorMsg}>
+              Password must be 8 characters long.
+            </Text>
+          </Animatable.View>
+        )}
         <Text style={[styles.text_footer, {marginTop: 15}]}>
           Comfirm Password
         </Text>
