@@ -11,14 +11,14 @@ import {
 } from '../styles/colors';
 
 import HomeScreen from './homeScreen/index.js';
-import DetailScreen from './detailScreen/index.js';
+import CartScreen from './cartScreen/index.js';
 import SettingScreen from './settingScreen/index.js';
 import ProfileScreen from './proflieScreen/index.js';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const HomeStack = createStackNavigator();
-const DetailSrack = createStackNavigator();
+const CartSrack = createStackNavigator();
 
 const MainTabScreen = () => (
   <Tab.Navigator initialRouteName="Home" activeColor="#fff">
@@ -34,13 +34,13 @@ const MainTabScreen = () => (
       }}
     />
     <Tab.Screen
-      name="Detail"
-      component={DetailStackScreen}
+      name="Cart"
+      component={CartStackScreen}
       options={{
-        tabBarLabel: 'Detail',
+        tabBarLabel: 'Cart',
         tabBarColor: COLOR_RED,
         tabBarIcon: ({color}) => (
-          <Icon name="ios-cube" color={color} size={26} />
+          <Icon name="ios-cart" color={color} size={26} />
         ),
       }}
     />
@@ -99,8 +99,8 @@ const HomeStackScreen = ({navigation}) => (
     />
   </HomeStack.Navigator>
 );
-const DetailStackScreen = ({navigation}) => (
-  <DetailSrack.Navigator
+const CartStackScreen = ({navigation}) => (
+  <CartSrack.Navigator
     screenOptions={{
       headerStyle: {
         backgroundColor: COLOR_RED,
@@ -110,9 +110,9 @@ const DetailStackScreen = ({navigation}) => (
         fontWeight: 'bold',
       },
     }}>
-    <DetailSrack.Screen
+    <CartSrack.Screen
       name="Detail"
-      component={DetailScreen}
+      component={CartScreen}
       options={{
         headerLeft: () => (
           <Icon.Button
@@ -124,5 +124,5 @@ const DetailStackScreen = ({navigation}) => (
         ),
       }}
     />
-  </DetailSrack.Navigator>
+  </CartSrack.Navigator>
 );

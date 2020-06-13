@@ -8,6 +8,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import RootStackScreen from './src/screens/rootstackscreen.js';
 
+import RootTabScreen from './src/screens/index.js';
+
 import {DrawerContent} from './src/screens/drawerScreen';
 
 import {AuthContext} from './src/components/context';
@@ -66,8 +68,6 @@ const App = () => {
 
   const authContext = React.useMemo(() => ({
     signIn: async (foundUser) => {
-      // setUserToken('abcd');
-      // setIsLoading(false);
       const userToken = String(foundUser[0].userToken);
       const userName = foundUser[0].username;
 
@@ -80,8 +80,6 @@ const App = () => {
       dispatch({type: 'LOGIN', id: userName, token: userToken});
     },
     signOut: async () => {
-      // setUserToken(null);
-      // setIsLoading(false);
       try {
         await AsyncStorage.removeItem('userToken');
       } catch (e) {
@@ -89,10 +87,7 @@ const App = () => {
       }
       dispatch({type: 'LOGOUT'});
     },
-    signUp: () => {
-      // setUserToken('abcd');
-      // setIsLoading(false);
-    },
+    signUp: () => {},
   }));
 
   useEffect(() => {

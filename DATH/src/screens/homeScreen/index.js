@@ -20,7 +20,7 @@ import {
 import {COLOR_FACEBOOK, COLOR_YELLOW} from '../../styles/colors';
 
 var {width} = Dimensions.get('window');
-class Menu extends Component {
+export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,7 +52,7 @@ class Menu extends Component {
         <View style={{flex: 1, backgroundColor: COLOR_YELLOW}}>
           <View style={{width: width, alignItems: 'center'}}>
             <Image
-              style={{height: 225, width: width, marginBottom: 15}}
+              style={styles.header}
               resizeMode="stretch"
               source={require('../../assets/banner.jpg')}
             />
@@ -124,7 +124,7 @@ class Menu extends Component {
           <Text style={{fontWeight: 'bold', fontSize: 22, textAlign: 'center'}}>
             {item.name}
           </Text>
-          <Text>Descp Food and Details</Text>
+          <Text>Description Food and Details</Text>
           <Text style={styles.priceFood}>${item.price}</Text>
           <TouchableOpacity
             onPress={() => this.onClickAddCart(item)}
@@ -198,15 +198,19 @@ class Menu extends Component {
       });
   }
 }
-const HomeScreen = ({navigation}) => {
-  return <Menu />;
-};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  header: {
+    height: 225,
+    width: width,
+    marginBottom: 15,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
   imageBanner: {
     height: width / 2,
@@ -258,5 +262,3 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR_YELLOW,
   },
 });
-
-export default HomeScreen;
