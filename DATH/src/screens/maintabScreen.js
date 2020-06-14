@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {
   COLOR_SPLASH_BG,
@@ -19,55 +20,90 @@ const Tab = createMaterialBottomTabNavigator();
 
 const HomeStack = createStackNavigator();
 const CartSrack = createStackNavigator();
+const Settingstack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 
-const MainTabScreen = () => (
-  <Tab.Navigator initialRouteName="Home" activeColor="#fff">
-    <Tab.Screen
-      name="Home"
-      component={HomeStackScreen}
-      options={{
-        tabBarLabel: 'Home',
-        tabBarColor: COLOR_SPLASH_BG,
-        tabBarIcon: ({color}) => (
-          <Icon name="ios-home" color={color} size={26} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="Cart"
-      component={CartStackScreen}
-      options={{
-        tabBarLabel: 'Cart',
-        tabBarColor: COLOR_RED,
-        tabBarIcon: ({color}) => (
-          <Icon name="ios-cart" color={color} size={26} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="Profile"
-      component={ProfileScreen}
-      options={{
-        tabBarLabel: 'Profile',
-        tabBarColor: COLOR_FACEBOOK,
-        tabBarIcon: ({color}) => (
-          <Icon name="ios-person" color={color} size={26} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="Settings"
-      component={SettingScreen}
-      options={{
-        tabBarLabel: 'Setiings',
-        tabBarColor: COLOR_YELLOW,
-        tabBarIcon: ({color}) => (
-          <Icon name="ios-settings" color={color} size={26} />
-        ),
-      }}
-    />
-  </Tab.Navigator>
-);
+class MainTabScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataCart: [],
+    };
+  }
+
+  getDada = () => {
+    AsyncStorage.getItem('cart')
+      .then((cart) => {
+        if (cart !== null) {
+          // We have data!!
+          const cartfood = JSON.parse(cart);
+          this.setState({dataCart: cartfood});
+        }
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-alert
+        alert(err);
+      });
+  };
+
+  componentDidMount() {
+    this.getDada();
+  }
+
+  componentDidUpdate() {
+    this.getDada();
+  }
+  render() {
+    return (
+      <Tab.Navigator initialRouteName="Home" activeColor="#fff">
+        <Tab.Screen
+          name="Home"
+          component={HomeStackScreen}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarColor: COLOR_SPLASH_BG,
+            tabBarIcon: ({color}) => (
+              <Icon name="ios-home" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Cart"
+          component={CartStackScreen}
+          options={{
+            tabBarBadge: this.state.dataCart.length,
+            tabBarColor: COLOR_RED,
+            tabBarIcon: ({color}) => (
+              <Icon name="ios-cart" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileStackScreen}
+          options={{
+            tabBarLabel: 'Profile',
+            tabBarColor: COLOR_FACEBOOK,
+            tabBarIcon: ({color}) => (
+              <Icon name="ios-person" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={SettingStackScreen}
+          options={{
+            tabBarLabel: 'Setiings',
+            tabBarColor: COLOR_YELLOW,
+            tabBarIcon: ({color}) => (
+              <Icon name="ios-settings" color={color} size={26} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    );
+  }
+}
 
 export default MainTabScreen;
 
@@ -125,4 +161,59 @@ const CartStackScreen = ({navigation}) => (
       }}
     />
   </CartSrack.Navigator>
+);
+const SettingStackScreen = ({navigation}) => (
+  <Settingstack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: COLOR_YELLOW,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}>
+    <Settingstack.Screen
+      name="Setting"
+      component={SettingScreen}
+      options={{
+        headerLeft: () => (
+          <Icon.Button
+            name="ios-menu"
+            size={25}
+            backgroundColor={COLOR_YELLOW}
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
+  </Settingstack.Navigator>
+);
+
+const ProfileStackScreen = ({navigation}) => (
+  <ProfileStack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: COLOR_FACEBOOK,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}>
+    <ProfileStack.Screen
+      name="Profile"
+      component={ProfileScreen}
+      options={{
+        headerLeft: () => (
+          <Icon.Button
+            name="ios-menu"
+            size={25}
+            backgroundColor={COLOR_FACEBOOK}
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
+  </ProfileStack.Navigator>
 );

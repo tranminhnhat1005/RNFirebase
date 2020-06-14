@@ -1,3 +1,4 @@
+/* eslint-disable react/no-did-mount-set-state */
 /* eslint-disable no-alert */
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
@@ -30,25 +31,24 @@ export default class HomeScreen extends Component {
       selectCatg: 0,
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
     const url = 'https://tutofox.com/foodapp/api.json';
-    return fetch(url)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          dataBanner: responseJson.banner,
-          dataCategories: responseJson.categories,
-          dataFood: responseJson.food,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
+    try {
+      const response = await fetch(url);
+      const responseJson = await response.json();
+      this.setState({
+        isLoading: false,
+        dataBanner: responseJson.banner,
+        dataCategories: responseJson.categories,
+        dataFood: responseJson.food,
       });
+    } catch (error) {
+      console.error(error);
+    }
   }
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={{flex: 1}}>
         <View style={{flex: 1, backgroundColor: COLOR_YELLOW}}>
           <View style={{width: width, alignItems: 'center'}}>
             <Image
@@ -180,10 +180,10 @@ export default class HomeScreen extends Component {
     };
 
     AsyncStorage.getItem('cart')
-      .then((datacart) => {
-        if (datacart !== null) {
+      .then((dataCart) => {
+        if (dataCart !== null) {
           // We have data!!
-          const cart = JSON.parse(datacart);
+          const cart = JSON.parse(dataCart);
           cart.push(itemcart);
           AsyncStorage.setItem('cart', JSON.stringify(cart));
         } else {
@@ -193,6 +193,7 @@ export default class HomeScreen extends Component {
         }
         alert('Add Cart');
       })
+      // .then(this.navigation.navigate('CartStackScreen'))
       .catch((err) => {
         alert(err);
       });
@@ -219,9 +220,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   divCategorie: {
+    flex: 1,
     backgroundColor: 'red',
     margin: 5,
-    alignItems: 'center',
+    alignItems: 'stretch',
+    justifyContent: 'center',
     borderRadius: 10,
     padding: 10,
   },
@@ -247,6 +250,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 1,
   },
   divFood: {
+    flex: 1,
     flexDirection: 'column',
     width: width / 2 - 20,
     padding: 10,

@@ -13,6 +13,7 @@ var {width} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
 import {COLOR_SPLASH_BG} from '../../styles/colors';
+
 export default class CartScreen extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +22,7 @@ export default class CartScreen extends Component {
     };
   }
 
-  componentDidMount() {
+  getDada = () => {
     AsyncStorage.getItem('cart')
       .then((cart) => {
         if (cart !== null) {
@@ -34,6 +35,32 @@ export default class CartScreen extends Component {
         // eslint-disable-next-line no-alert
         alert(err);
       });
+  };
+
+  componentDidMount() {
+    this.getDada();
+  }
+
+  componentDidUpdate() {
+    this.getDada();
+  }
+  onChangeQual(i, type) {
+    const dataCar = this.state.dataCart;
+    let cantd = dataCar[i].quantity;
+
+    if (type) {
+      cantd = cantd + 1;
+      dataCar[i].quantity = cantd;
+      this.setState({dataCart: dataCar});
+    } else if (type === false && cantd >= 2) {
+      cantd = cantd - 1;
+      dataCar[i].quantity = cantd;
+      this.setState({dataCart: dataCar});
+    } else if (type === false && cantd === 1) {
+      dataCar.splice(i, 1);
+      this.setState({dataCart: dataCar});
+    }
+    AsyncStorage.setItem('cart', JSON.stringify(dataCar));
   }
 
   render() {
@@ -124,6 +151,25 @@ export default class CartScreen extends Component {
             })}
 
             <View style={{height: 20}} />
+            {/* <TouchableOpacity
+              style={{
+                backgroundColor: COLOR_SPLASH_BG,
+                width: width - 40,
+                alignItems: 'center',
+                padding: 10,
+                borderRadius: 5,
+                margin: 20,
+              }}
+              onPress={this.forceUpdateHandler()}>
+              <Text
+                style={{
+                  fontSize: 24,
+                  fontWeight: 'bold',
+                  color: 'white',
+                }}>
+                Update your cart
+              </Text>
+            </TouchableOpacity> */}
 
             <TouchableOpacity
               style={{
@@ -149,24 +195,5 @@ export default class CartScreen extends Component {
         </View>
       </View>
     );
-  }
-
-  onChangeQual(i, type) {
-    const dataCar = this.state.dataCart;
-    let cantd = dataCar[i].quantity;
-
-    if (type) {
-      cantd = cantd + 1;
-      dataCar[i].quantity = cantd;
-      this.setState({dataCart: dataCar});
-    } else if (type === false && cantd >= 2) {
-      cantd = cantd - 1;
-      dataCar[i].quantity = cantd;
-      this.setState({dataCart: dataCar});
-      // AsyncStorage.setItem('cart', )
-    } else if (type === false && cantd === 1) {
-      dataCar.splice(i, 1);
-      this.setState({dataCart: dataCar});
-    }
   }
 }

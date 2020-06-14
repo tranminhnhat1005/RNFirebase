@@ -28,6 +28,7 @@ export default class Index extends Component {
     super(props);
     this.state = {
       module: 1,
+      dataCart: [],
     };
   }
 
