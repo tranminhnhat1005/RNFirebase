@@ -14,14 +14,14 @@ import {
 import HomeScreen from './homeScreen/index.js';
 import CartScreen from './cartScreen/index.js';
 import SettingScreen from './settingScreen/index.js';
-import ProfileScreen from './proflieScreen/index.js';
+import ContactScreen from './contactScreen/index.js';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const HomeStack = createStackNavigator();
 const CartSrack = createStackNavigator();
 const Settingstack = createStackNavigator();
-const ProfileStack = createStackNavigator();
+const ContactStack = createStackNavigator();
 
 class MainTabScreen extends Component {
   constructor(props) {
@@ -79,10 +79,10 @@ class MainTabScreen extends Component {
           }}
         />
         <Tab.Screen
-          name="Profile"
-          component={ProfileStackScreen}
+          name="Contact"
+          component={ContactStackScreen}
           options={{
-            tabBarLabel: 'Profile',
+            tabBarLabel: 'Contact',
             tabBarColor: COLOR_FACEBOOK,
             tabBarIcon: ({color}) => (
               <Icon name="ios-person" color={color} size={26} />
@@ -190,8 +190,8 @@ const SettingStackScreen = ({navigation}) => (
   </Settingstack.Navigator>
 );
 
-const ProfileStackScreen = ({navigation}) => (
-  <ProfileStack.Navigator
+const ContactStackScreen = ({navigation}) => (
+  <ContactStack.Navigator
     screenOptions={{
       headerStyle: {
         backgroundColor: COLOR_FACEBOOK,
@@ -201,9 +201,9 @@ const ProfileStackScreen = ({navigation}) => (
         fontWeight: 'bold',
       },
     }}>
-    <ProfileStack.Screen
-      name="Profile"
-      component={ProfileScreen}
+    <ContactStack.Screen
+      name="Contact"
+      component={ContactScreen}
       options={{
         headerLeft: () => (
           <Icon.Button
@@ -215,5 +215,5 @@ const ProfileStackScreen = ({navigation}) => (
         ),
       }}
     />
-  </ProfileStack.Navigator>
+  </ContactStack.Navigator>
 );

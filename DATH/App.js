@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import RootStackScreen from './src/screens/rootstackscreen.js';
 
-import RootTabScreen from './src/screens/index.js';
+// import RootTabScreen from './src/screens/index.js';
 
 import {DrawerContent} from './src/screens/drawerScreen';
 
