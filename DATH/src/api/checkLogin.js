@@ -1,13 +1,13 @@
 import global from '../global';
 
-const signup = (username, name, password) =>
-  fetch('http://' + global.ip + '/app/register.php', {
+const checkLogin = (token) =>
+  fetch('http://' + global.ip + '/app/check_login.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-    body: JSON.stringify({username, name, password}),
+    body: JSON.stringify({token}),
   }).then((res) => res.text());
 
-export default signup;
+export default checkLogin;

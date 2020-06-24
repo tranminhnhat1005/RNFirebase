@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import {
   COLOR_FACEBOOK,
   COLOR_LIGHT_GREY,
@@ -7,12 +7,15 @@ import {
   COLOR_RED,
   COLOR_YELLOW,
 } from '../../styles/colors';
-
+// const width = Dimensions(width);
 const ContactScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.map}>
-        <Text>This is Map</Text>
+        <Image
+          style={styles.img_map}
+          source={require('../../assets/map_ex.png')}
+        />
       </View>
       <View style={styles.info}>
         <View style={styles.info_img}>
@@ -48,9 +51,14 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  img_map: {
+    // height: 400,
+    flex: 1,
+    resizeMode: 'contain',
   },
   info: {
     flex: 1,

@@ -19,7 +19,7 @@ import {
   Image,
 } from 'react-native';
 import {COLOR_FACEBOOK, COLOR_YELLOW} from '../../styles/colors';
-
+import global from '../../global';
 var {width} = Dimensions.get('window');
 export default class HomeScreen extends Component {
   constructor(props) {
@@ -31,6 +31,7 @@ export default class HomeScreen extends Component {
       selectCatg: 0,
     };
   }
+
   async componentDidMount() {
     const url = 'https://tutofox.com/foodapp/api.json';
     try {
@@ -64,6 +65,7 @@ export default class HomeScreen extends Component {
               {this.state.dataBanner.map((itembann) => {
                 return (
                   <Image
+                    // key={itembann}
                     style={styles.imageBanner}
                     resizeMode="contain"
                     source={{uri: itembann}}

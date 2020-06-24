@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
 import React, {Component} from 'react';
 import {
-  View,
   Text,
+  View,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
@@ -10,25 +9,13 @@ import {
 import * as Animatable from 'react-native-animatable';
 import {COLOR_SPLASH_BG, COLOR_YELLOW} from '../../styles/colors';
 
-import global from '../../global';
-
-import saveToken from '../../api/saveToken';
-import checkLogin from '../../api/checkLogin';
-import getToken from '../../api/getToken';
-
 export default class Splash extends Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
-    getToken()
-      .then((token) => checkLogin(token))
-      .then((res) => global.onSignIn(res.user))
-      .catch((err) => console.log('LOI :', err));
-  }
   gotoSignIn() {
     const {navigation} = this.props;
-    navigation.replace('SignInScreen');
+    navigation.replace('SignIn');
   }
   render() {
     return (
@@ -96,7 +83,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'grey',
-    marginTop: 5,
+    marginTop: 8,
+    fontSize: 15,
   },
   button: {
     alignItems: 'flex-end',

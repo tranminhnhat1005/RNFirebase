@@ -77,6 +77,7 @@ export default class CartScreen extends Component {
             {this.state.dataCart.map((item, i) => {
               return (
                 <View
+                  // key={item}
                   style={{
                     width: width - 20,
                     margin: 10,

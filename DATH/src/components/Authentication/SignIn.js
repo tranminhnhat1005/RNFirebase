@@ -8,7 +8,7 @@ import {
   Platform,
   StyleSheet,
   StatusBar,
-  Alert,
+  //   Alert,
 } from 'react-native';
 import {COLOR_SPLASH_BG} from '../../styles/colors';
 import * as Animatable from 'react-native-animatable';
@@ -16,9 +16,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
 import signin from '../../api/singin';
-import global from '../../global';
-
-import saveToken from '../../api/saveToken';
 
 class SignInScreen extends Component {
   constructor(props) {
@@ -80,17 +77,23 @@ class SignInScreen extends Component {
       });
     }
   };
+
   signInUser() {
     const {username, password} = this.state;
     signin(username, password)
-      .then((res) => {
-        global.onSignIn(res.user);
-        saveToken(res.token.json());
-        console.log(res.token);
-      })
+      .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
 
+  gotoMain() {
+    const {navigation} = this.props;
+    navigation.replace('Main');
+  }
+
+  gotoSignUp() {
+    const {navigation} = this.props;
+    navigation.navigate('SignUp');
+  }
   render() {
     const {username, password} = this.state;
     return (
@@ -159,12 +162,12 @@ class SignInScreen extends Component {
           </TouchableOpacity>
           <View style={styles.button}>
             <TouchableOpacity
-              onPress={this.signInUser.bind(this)}
+              onPress={this.gotoMain.bind(this)}
               style={[styles.signIn, {backgroundColor: COLOR_SPLASH_BG}]}>
               <Text style={[styles.textSign, {color: '#fff'}]}>Sign In</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('SignUpScreen')}
+              onPress={this.gotoSignUp.bind(this)}
               style={[
                 styles.signIn,
                 {
